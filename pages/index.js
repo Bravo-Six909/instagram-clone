@@ -4,9 +4,6 @@ import Follow from '../components/Body/Follow'
 import Story from '../components/Body/Story'
 import TotalFeed from '../components/Body/TotalFeed'
 import Navbar from '../components/Navbar/Navbar'
-import { auth } from '../firebase';
-import { useRouter } from 'next/router';
-
 
 export default function Home() {
 
@@ -23,15 +20,15 @@ export default function Home() {
           <Navbar />
         </div>
         <div className='flex'>
-          <div className='w-1/4'></div>
-          <div className='w-3/5'>
+          <div className='hidden md:block w-1/4'></div>
+          <div className='w-screen md:block md:w-3/5'>
             <Story />
             <TotalFeed />
           </div>
-          <div className='w-2/5 '>
+          <div className='hidden md:block w-2/5'>
             <Follow />
           </div>
-          <div className='w-1/4'></div>
+          <div className='hidden md:block w-1/4'></div>
         </div>
       </div>
     </div>

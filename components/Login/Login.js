@@ -2,48 +2,24 @@ import React, { useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import { FaFacebookF } from 'react-icons/fa';
 import { auth } from '../../firebase';
-import { GoogleAuthProvider, onAuthStateChanged, signInWithPopup, FacebookAuthProvider,signOut } from 'firebase/auth';
+import { onAuthStateChanged, signInWithPopup, FacebookAuthProvider,signOut } from 'firebase/auth';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const Login = () => {
-    const [user, setUser] = useState(null);
-    const [loggedUser, setLoggedUser] = useState(null);
+    // const [users, setUsers] = useState(null);
+    const [user] = useAuthState(auth);
     const router = useRouter();
-
-    const googleProvider = new GoogleAuthProvider();
-    const signInWithGoogle = () => {
-        signInWithPopup(auth, googleProvider)
-            .then((result) => {
-                setUser(result);
-                router.push("/");
-            })
-            .catch((err) => {
-                console.error(err.message);
-            })
-    }
 
     const facebookProvider = new FacebookAuthProvider();
     const signInWithFacebook = () => {
         signInWithPopup(auth, facebookProvider)
-            .then((result) => {
-                setUser(result);
-                console.log(result);
-                router.push("/");
-            })
-            .catch((err) => {
-                console.error(err.message);
-            })
+        .catch((err) => {
+            router.push(`/error/${err}`)
+        })
     }
 
-    const signOutAuth = async () => {
-        await signOut(auth);
-        console.log(auth);
-    }
-
-    // onAuthStateChanged(auth, (currUser) => {
-    //     setLoggedUser(currUser);
-    // })
 
 
     return (
@@ -56,16 +32,9 @@ const Login = () => {
                 <div>
                     <img src="/insta_png.svg" />
                 </div>
-                <div className='flex justify-center items-center border border-gray-800 p-4 rounded-md my-4 shadow-xl'>
-                    <FcGoogle className='h-6 w-6 mr-2' />
-                    <button onClick={signInWithGoogle} className='border-none font-semibold text-black-600'>Login With Google</button>
-                </div>
-                {/* <div className='flex justify-center items-center border border-gray-300 p-4 rounded-md my-4'>
+                <div className='flex justify-center items-center border border-black p-4 rounded-md my-4 shadow-2xl cursor-pointer'>
                     <FaFacebookF className='h-6 w-6 mr-2' />
                     <button onClick={signInWithFacebook} className='border-none font-semibold text-black-600'>Login With Facebook</button>
-                </div> */}
-                <div>
-                    <button onClick={signOutAuth}>Logout</button>
                 </div>
             </div>
         </>

@@ -14,11 +14,10 @@ const Story = ({jsonData}) => {
   
 
   return (
-    <div className='flex border p-4 mt-4 w-[600px] overflow-x-auto scroll-bar-container' >
-      {console.log(data)}
+    <div className='min-w-[200px] max-w-[600px] flex border p-4 mt-4 overflow-x-auto scroll-bar-container' >
       {!data ? <TailSpin heigth="100" width="100" color='#dd1ea0'/> : data.map((item,i) => {
         return(
-          <StoryItem key={i} image={item?.user.profile_image.medium} />
+          <StoryItem key={i} ids={item?.id} image={item?.user.profile_image.medium} />
         );
       })}
     </div>
