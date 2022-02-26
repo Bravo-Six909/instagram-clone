@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
-const ids = () => {
+const Ids = () => {
     const router = useRouter();
     const id = router.query.ids;
     const [data, setData] = useState(null);
@@ -15,7 +15,6 @@ const ids = () => {
 
   return (
     <div className='w-screen h-screen flex justify-center'>
-        {console.log(data)}
         <div className='h-screen w-1/2 relative'>
             <img className='h-screen w-full' src={data?.urls?.regular} />
             <div className='flex items-center justify-start absolute top-2 left-2'>
@@ -27,4 +26,4 @@ const ids = () => {
   )
 }
 
-export default ids;
+export default Ids;
